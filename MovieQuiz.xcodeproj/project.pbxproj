@@ -16,7 +16,23 @@
 		AD5EE5DE284D7887003966EF /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD5EE5DD284D7887003966EF /* UIColor+Extensions.swift */; };
 		AD77F5742857F8810062FB14 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD77F5732857F8810062FB14 /* Date+Extensions.swift */; };
 		AD7AFA552836189F00399704 /* Array+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AD7AFA542836189F00399704 /* Array+Extensions.swift */; };
+		B02DDC8F2C7D089B00C63CA4 /* YS Display-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B02DDC8D2C7D089B00C63CA4 /* YS Display-Bold.ttf */; };
+		B02DDC902C7D089B00C63CA4 /* YS Display-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B02DDC8E2C7D089B00C63CA4 /* YS Display-Medium.ttf */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXBuildRule section */
+		B010D7B22C6D3F5C008A8074 /* PBXBuildRule */ = {
+			isa = PBXBuildRule;
+			compilerSpec = com.apple.compilers.proxy.script;
+			fileType = wrapper.nib;
+			inputFiles = (
+			);
+			isEditable = 1;
+			outputFiles = (
+			);
+			script = "# ibtool\n";
+		};
+/* End PBXBuildRule section */
 
 /* Begin PBXFileReference section */
 		AD1ABAAE2831907B00B3E448 /* MovieQuiz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MovieQuiz.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -30,6 +46,8 @@
 		AD5EE5DD284D7887003966EF /* UIColor+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		AD77F5732857F8810062FB14 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		AD7AFA542836189F00399704 /* Array+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Array+Extensions.swift"; sourceTree = "<group>"; };
+		B02DDC8D2C7D089B00C63CA4 /* YS Display-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Bold.ttf"; sourceTree = "<group>"; };
+		B02DDC8E2C7D089B00C63CA4 /* YS Display-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "YS Display-Medium.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -69,6 +87,7 @@
 		8F4738332848DE46005DF65E /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B02DDC922C7D08F300C63CA4 /* Fonts */,
 				AD1ABABC2831907F00B3E448 /* LaunchScreen.storyboard */,
 				AD1ABABA2831907F00B3E448 /* Assets.xcassets */,
 				AD1ABABF2831907F00B3E448 /* Info.plist */,
@@ -116,6 +135,23 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
+		B02DDC922C7D08F300C63CA4 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				B02DDC932C7D091B00C63CA4 /* YS Display */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
+		B02DDC932C7D091B00C63CA4 /* YS Display */ = {
+			isa = PBXGroup;
+			children = (
+				B02DDC8D2C7D089B00C63CA4 /* YS Display-Bold.ttf */,
+				B02DDC8E2C7D089B00C63CA4 /* YS Display-Medium.ttf */,
+			);
+			path = "YS Display";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -128,6 +164,7 @@
 				AD1ABAAC2831907B00B3E448 /* Resources */,
 			);
 			buildRules = (
+				B010D7B22C6D3F5C008A8074 /* PBXBuildRule */,
 			);
 			dependencies = (
 			);
@@ -178,6 +215,8 @@
 				AD1ABABE2831907F00B3E448 /* LaunchScreen.storyboard in Resources */,
 				AD1ABABB2831907F00B3E448 /* Assets.xcassets in Resources */,
 				AD1ABAB92831907B00B3E448 /* Main.storyboard in Resources */,
+				B02DDC8F2C7D089B00C63CA4 /* YS Display-Bold.ttf in Resources */,
+				B02DDC902C7D089B00C63CA4 /* YS Display-Medium.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

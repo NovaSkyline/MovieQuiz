@@ -84,6 +84,23 @@ final class MovieQuizViewController: UIViewController {
     @IBOutlet private weak var imageView: UIImageView!
     @IBOutlet private weak var textLabel: UILabel!
     @IBOutlet private weak var counterLabel: UILabel!
+    @IBOutlet private weak var noButton: UIButton!
+    @IBOutlet private weak var yesButton: UIButton!
+    
+    // Метод для изменения состояния кнопки
+    private func changeStateButton(isEnabled: Bool) {
+        noButton.isEnabled = isEnabled
+        yesButton.isEnabled = isEnabled
+    }
+    
+    // Обработка ответа и блокировка кнопок
+    private func checkAnswer(givenAnswer: Bool) {
+        changeStateButton(isEnabled: false) // Блокируем кнопки
+        
+        let currentQuestion = questions[currentQuestionIndex]
+        let isCorrect = givenAnswer == currentQuestion.correctAnswer
+        showAnswerResult(isCorrect: isCorrect)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -116,8 +133,8 @@ final class MovieQuizViewController: UIViewController {
     // приватный метод, который обрабатывает результат ответа
     // принимает на вход булевое значение и ничего не возвращает
     private func showAnswerResult(isCorrect: Bool) {
-        if isCorrect { // 1
-            correctAnswers += 1 // 2
+        if isCorrect {
+            correctAnswers += 1
         }
         
         imageView.layer.masksToBounds = true
@@ -126,6 +143,7 @@ final class MovieQuizViewController: UIViewController {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) {
             self.showNextQuestionOrResults()
+            self.changeStateButton(isEnabled: true) // Разблокируем кнопки
         }
     }
     
@@ -167,17 +185,14 @@ final class MovieQuizViewController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    // Обработка нажатий кнопок
+    // Обработка нажатия на кнопку "Нет"
     @IBAction private func noButtonClicked(_ sender: UIButton) {
-        let currentQuestion = questions[currentQuestionIndex]
-        let givenAnswer = false
-        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+        checkAnswer(givenAnswer: false)
     }
     
+    // Обработка нажатия на кнопку "Нет"
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
-        let currentQuestion = questions[currentQuestionIndex]
-        let givenAnswer = true
-        showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
+        checkAnswer(givenAnswer: true)
     }
 }
 

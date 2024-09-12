@@ -190,7 +190,7 @@ final class MovieQuizViewController: UIViewController {
         checkAnswer(givenAnswer: false)
     }
     
-    // Обработка нажатия на кнопку "Нет"
+    // Обработка нажатия на кнопку "Да"
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
         checkAnswer(givenAnswer: true)
     }

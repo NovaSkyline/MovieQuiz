@@ -13,6 +13,7 @@ final class StatisticServiceImplementation: StatisticServiceProtocol {
     private enum Keys: String {
         case correct, total, bestGame, gamesCount
     }
+    
     var totalAccuracy: Double {
         get {
             userDefaults.double(forKey: Keys.total.rawValue)

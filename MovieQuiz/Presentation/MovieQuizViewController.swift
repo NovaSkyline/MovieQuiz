@@ -12,7 +12,7 @@ final class MovieQuizViewController: UIViewController,
     private var currentQuestion: QuizQuestion?
     
     private var alertPresenter: AlertPresenter?
-    private var questionFactory: QuestionFactoryProtocol = QuestionFactory()
+    private var questionFactory: QuestionFactoryProtocol?
     private var statisticService: StatisticServiceProtocol = StatisticServiceImplementation()
     
     // MARK: UI элементы
@@ -22,18 +22,34 @@ final class MovieQuizViewController: UIViewController,
     @IBOutlet private var counterLabel: UILabel!
     @IBOutlet private var noButton: UIButton!
     @IBOutlet private var yesButton: UIButton!
+    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
+    
     
     // MARK: Lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let questionFactory = QuestionFactory()
-        questionFactory.delegate = self
+        let questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
         self.questionFactory = questionFactory
-        questionFactory.requestNextQuestion()
         
         alertPresenter = AlertPresenter(viewController: self)
         alertPresenter?.delegate = self
+        
+        statisticService = StatisticServiceImplementation()
+        showLoadingIndicator()
+        questionFactory.loadData()
+        show(currentIndex: currentQuestionIndex)
+        
+    }
+    
+    // QuestionFactoryDelegate
+    func didFailToLoadData(with error: Error) {
+        showNetworkError(message: error.localizedDescription)
+    }
+    
+    func didLoadDataFromServer() {
+        activityIndicator.isHidden = true
+        questionFactory?.requestNextQuestion()
     }
     
     // Обработка нажатия на кнопку "Нет"
@@ -63,18 +79,18 @@ final class MovieQuizViewController: UIViewController,
             return
         }
         currentQuestion = question
-        let viewmodel = convert(model: question)
+        let viewModel = convert(model: question)
+        
         DispatchQueue.main.async { [weak self] in
-            self?.show(quiz: viewmodel)
+            self?.show(quiz: viewModel)
         }
     }
     
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
-        let questionStep = QuizStepViewModel(
-            image: UIImage(named: model.image) ?? UIImage(),
+        return QuizStepViewModel(
+            image: UIImage(data: model.image) ?? UIImage(),
             question: model.text,
             questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
-        return questionStep
     }
     
     private func show(quiz step: QuizStepViewModel) {
@@ -136,14 +152,12 @@ final class MovieQuizViewController: UIViewController,
             self.show(quiz: viewmodel)
         } else {
             currentQuestionIndex += 1
-            self.questionFactory.requestNextQuestion()
-            yesButton.isEnabled = true
-            noButton.isEnabled = true
+            self.questionFactory?.requestNextQuestion()
         }
     }
     
     private func show(currentIndex: Int){
-        questionFactory.requestNextQuestion()
+        questionFactory?.requestNextQuestion()
     }
     
     func showAlert() {
@@ -151,6 +165,34 @@ final class MovieQuizViewController: UIViewController,
         correctAnswers = 0
         show(currentIndex: currentQuestionIndex)
     }
+    
+    private func showLoadingIndicator() {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+    
+    private func hideLoadingIndicator () {
+        activityIndicator.stopAnimating()
+        activityIndicator.isHidden = true
+    }
+    
+    private func showNetworkError(message: String) {
+        hideLoadingIndicator()
+        
+        let model = AlertModel(title: "Ошибка",
+                               message: message,
+                               buttonText: "Попробовать еще раз") { [weak self] in
+            guard let self = self else { return }
+            
+            self.currentQuestionIndex = 0
+            self.correctAnswers = 0
+            
+            self.questionFactory?.requestNextQuestion()
+        }
+        
+        alertPresenter?.showAlert(alertView: model)
+    }
+    
 }
 
 /*

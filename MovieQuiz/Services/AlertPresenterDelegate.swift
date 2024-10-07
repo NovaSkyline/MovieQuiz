@@ -5,7 +5,7 @@
 //  Created by Руслан Камалов on 21.09.2024.
 //
 
-import Foundation
+import UIKit
 
 protocol AlertPresenterDelegate: AnyObject {
     func showAlert()

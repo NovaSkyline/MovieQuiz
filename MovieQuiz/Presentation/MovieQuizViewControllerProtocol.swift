@@ -14,6 +14,5 @@ protocol MovieQuizViewControllerProtocol: AnyObject {
     func showLoadingIndicator()
     func hideLoadingIndicator()
     func showNetworkError(message: String)
-    func disableAnswerButtons()
-    func enableAnswerButtons()
+    func makeButtons(isEnabled: Bool)
 }

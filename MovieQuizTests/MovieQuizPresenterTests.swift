@@ -10,7 +10,7 @@ import XCTest
 @testable import MovieQuiz
 
 final class MovieQuizViewControllerMock: MovieQuizViewControllerProtocol {
-    
+   
     var isAnswerButtonsEnabled: Bool = true
     var didShowQuizStep: QuizStepViewModel?
     var didShowQuizResults: QuizResultsViewModel?
@@ -46,13 +46,10 @@ final class MovieQuizViewControllerMock: MovieQuizViewControllerProtocol {
         didShowNetworkError = message
     }
     
-    func disableAnswerButtons() {
-        isAnswerButtonsEnabled = false
-    }
-    
-    func enableAnswerButtons() {
+    func makeButtons(isEnabled: Bool) {
         isAnswerButtonsEnabled = true
-    }
+        isAnswerButtonsEnabled = false
+        }
 }
 
 

@@ -27,12 +27,12 @@ final class MovieQuizViewController: UIViewController, AlertPresenterDelegate, M
     // MARK: - Actions
     
     @IBAction private func yesButtonClicked(_ sender: UIButton) {
-        disableAnswerButtons()
+        makeButtons(isEnabled: false)
         presenter.yesButtonClicked()
     }
     
     @IBAction private func noButtonClicked(_ sender: UIButton) {
-        disableAnswerButtons()
+        makeButtons(isEnabled: false)
         presenter.noButtonClicked()
     }
     
@@ -58,7 +58,7 @@ final class MovieQuizViewController: UIViewController, AlertPresenterDelegate, M
             
             self.presenter.restartGame()
             
-            enableAnswerButtons()
+            makeButtons(isEnabled: true)
         }
         
         alert.addAction(action)
@@ -99,7 +99,7 @@ final class MovieQuizViewController: UIViewController, AlertPresenterDelegate, M
             
             self.presenter.restartGame()
             
-            enableAnswerButtons()
+            makeButtons(isEnabled: true)
         }
         
         alert.addAction(action)
@@ -107,16 +107,20 @@ final class MovieQuizViewController: UIViewController, AlertPresenterDelegate, M
         self.present(alert, animated: true, completion: nil)
     }
     
-    // Метод для отключения кнопок
-    func disableAnswerButtons() {
-        yesButton.isEnabled = false
-        noButton.isEnabled = false
-    }
-    
-    // Метод для включения кнопок
-    func enableAnswerButtons() {
-        yesButton.isEnabled = true
-        noButton.isEnabled = true
-    }
+    func makeButtons(isEnabled: Bool) {
+            yesButton.isEnabled = isEnabled
+            noButton.isEnabled = isEnabled
+        }
+//    // Метод для отключения кнопок
+//    func disableAnswerButtons() {
+//        yesButton.isEnabled = false
+//        noButton.isEnabled = false
+//    }
+//    
+//    // Метод для включения кнопок
+//    func enableAnswerButtons() {
+//        yesButton.isEnabled = true
+//        noButton.isEnabled = true
+//    }
     
 }

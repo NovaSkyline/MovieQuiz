@@ -14,6 +14,11 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     private weak var viewController: MovieQuizViewControllerProtocol?
     private let statisticService: StatisticService!
     
+    private let questionsAmount: Int = 10
+    private var currentQuestionIndex: Int = 0
+    private var currentQuestion: QuizQuestion?
+    private var correctAnswers: Int = 0
+    
     init(viewController: MovieQuizViewControllerProtocol)  {
         self.viewController = viewController
         
@@ -24,10 +29,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         viewController.showLoadingIndicator()
     }
     
-    private let questionsAmount: Int = 10
-    private var currentQuestionIndex: Int = 0
-    private var currentQuestion: QuizQuestion?
-    private var correctAnswers: Int = 0
+
     
     // MARK: - QuestionFactoryDelegate
     
@@ -51,7 +53,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         DispatchQueue.main.async { [weak self] in
             self?.viewController?.show(quiz: viewModel)
             
-            self?.viewController?.enableAnswerButtons()
+            self?.viewController?.makeButtons(isEnabled: true)
         }
     }
     

@@ -12,7 +12,7 @@ struct GameResult: Codable {
     var total: Int
     var date: Date
     
-    func isBetterThan(_ another: GameResult)->Bool{
+    func isBetterThan(_ another: GameResult) -> Bool {
         return correct > another.correct
     }
 }

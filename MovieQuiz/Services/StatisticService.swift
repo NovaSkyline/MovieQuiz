@@ -7,7 +7,15 @@
 
 import Foundation
 
-final class StatisticServiceImplementation: StatisticServiceProtocol {
+protocol StatisticService {
+    func store(correct count: Int, total amount: Int)
+    var totalAccuracy: Double { get }
+    var gamesCount: Int { get }
+    var bestGame: GameResult { get }
+}
+
+
+final class StatisticServiceImplementation: StatisticService {
     private let userDefaults = UserDefaults.standard
     
     private enum Keys: String {

@@ -2,12 +2,13 @@ import UIKit
 
 final class MovieQuizViewController: UIViewController, AlertPresenterDelegate, MovieQuizViewControllerProtocol {
     
-    @IBOutlet private var imageView: UIImageView!
-    @IBOutlet private var textLabel: UILabel!
-    @IBOutlet private var counterLabel: UILabel!
-    @IBOutlet private var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet private var yesButton: UIButton!
-    @IBOutlet private var noButton: UIButton!
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var textLabel: UILabel!
+    @IBOutlet private weak var counterLabel: UILabel!
+    @IBOutlet private weak var questionTitleLabel: UILabel!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var yesButton: UIButton!
+    @IBOutlet private weak var noButton: UIButton!
     
     private var alertPresenter: AlertPresenterProtocol?
     private var presenter: MovieQuizPresenter!
@@ -19,6 +20,11 @@ final class MovieQuizViewController: UIViewController, AlertPresenterDelegate, M
         
         presenter = MovieQuizPresenter(viewController: self)
         
+        textLabel.font = UIFont(name: "YSDisplay-Bold", size: 23)
+        yesButton.titleLabel?.font = UIFont(name: "YSDisplay-Medium", size: 20)
+        noButton.titleLabel?.font = UIFont(name: "YSDisplay-Medium", size: 20)
+        questionTitleLabel.font = UIFont(name: "YSDisplay-Medium", size: 20)
+        counterLabel.font = UIFont(name: "YSDisplay-Medium", size: 20)
         imageView.layer.cornerRadius = 20
         
         activityIndicator.hidesWhenStopped = true
@@ -108,19 +114,7 @@ final class MovieQuizViewController: UIViewController, AlertPresenterDelegate, M
     }
     
     func makeButtons(isEnabled: Bool) {
-            yesButton.isEnabled = isEnabled
-            noButton.isEnabled = isEnabled
-        }
-//    // Метод для отключения кнопок
-//    func disableAnswerButtons() {
-//        yesButton.isEnabled = false
-//        noButton.isEnabled = false
-//    }
-//    
-//    // Метод для включения кнопок
-//    func enableAnswerButtons() {
-//        yesButton.isEnabled = true
-//        noButton.isEnabled = true
-//    }
-    
+        yesButton.isEnabled = isEnabled
+        noButton.isEnabled = isEnabled
+    }
 }
